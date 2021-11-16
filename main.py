@@ -1,5 +1,6 @@
 
 import random
+import matplotlib.pyplot as plt
 
 factors = {
     "AB": [[30,5],
@@ -31,9 +32,9 @@ if __name__ == '__main__':
     initial_assignment = random_assignment()
     current_assignment = initial_assignment.copy()
     samples = [initial_assignment]
-    sample_count = 100000
+    sample_count = 1000000
 
-    for i in range(sample_count):
+    for i in range(sample_count-1):
         variable = random_variables[i%3]
         factor = []
 
@@ -58,11 +59,20 @@ if __name__ == '__main__':
 
         samples.append(current_assignment)
 
+    # Calculate the probability of P(A=0 | B=1) and P(A=1 | B=1)
     result = [0,0]
+    true_probs = [0]
+    false_probs = [0]
     for sample in samples:
         result[sample["A"]] += 1
+        false_probs.append(result[0]/(result[0]+result[1]))
+        true_probs.append(result[1] / (result[0] + result[1]))
 
-    print(result)
-
-
+    plt.plot(true_probs)
+    plt.plot([0.0566]*len(false_probs))
+    plt.xlabel('Number of Samples')
+    plt.ylabel('P(A = 1 | B = 1)')
+    plt.xscale('log')
+    plt.gca().legend(('Gibbs Sampling', 'Variable Elimination'))
+    plt.savefig('true.png')
 
