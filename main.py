@@ -39,14 +39,26 @@ if __name__ == '__main__':
         factor = []
 
         if variable == "A":
-            factor = [a*b for a,b in zip([factors["AB"][0][current_assignment["B"]],factors["AB"][1][current_assignment["B"]]],
-                                         factors["DA"][current_assignment["D"]])]
+            factor = [a*b for a,b in zip(
+                [
+                    factors["AB"][0][current_assignment["B"]],
+                    factors["AB"][1][current_assignment["B"]]
+                ],
+                factors["DA"][current_assignment["D"]])]
         elif variable == "C":
-            factor = [a*b for a,b in zip([factors["CD"][0][current_assignment["D"]],factors["CD"][1][current_assignment["D"]]],
-                                         factors["BC"][current_assignment["B"]])]
+            factor = [a*b for a,b in zip(
+                [
+                    factors["CD"][0][current_assignment["D"]],
+                    factors["CD"][1][current_assignment["D"]]
+                ],
+                factors["BC"][current_assignment["B"]])]
         else:
-            factor = [a*b for a,b in zip([factors["DA"][0][current_assignment["A"]],factors["DA"][1][current_assignment["A"]]],
-                                         factors["CD"][current_assignment["C"]])]
+            factor = [a*b for a,b in zip(
+                [
+                    factors["DA"][0][current_assignment["A"]],
+                    factors["DA"][1][current_assignment["A"]]
+                ],
+                factors["CD"][current_assignment["C"]])]
 
         prob = [x / sum(factor) for x in factor]
 
